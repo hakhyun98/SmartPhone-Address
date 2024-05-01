@@ -38,7 +38,7 @@ public class SmartPhone {
 		} else if (group.equals("거래처")) {
 			System.out.print("거래처 : ");
 			String customerNm = sc.nextLine();
-			System.out.print("거래품목: ");
+			System.out.print("거래품목 : ");
 			String product = sc.nextLine();
 			System.out.print("직급 : ");
 			String rank = sc.nextLine();
@@ -60,32 +60,21 @@ public class SmartPhone {
 
 	// 객체 출력 메소드
 	public void printAddr(Addr addr) {
+		System.out.println("이름:" + addr.getName());
+		System.out.println("전화번호:" + addr.getPhone());
+		System.out.println("이메일:" + addr.getEmail());
+		System.out.println("주소:" + addr.getAddr());
+		System.out.println("그룹(친구/가족/회사/거래처):" + addr.getGroup());
 		if (addr.getGroup().equals("회사")) {
 			CompanyAddr company = (CompanyAddr) addr;
-			System.out.println("이름:" + addr.getName());
-			System.out.println("전화번호:" + addr.getPhone());
-			System.out.println("이메일:" + addr.getEmail());
-			System.out.println("주소:" + addr.getAddr());
-			System.out.println("그룹(친구/가족/회사/거래처):" + addr.getGroup());
 			System.out.println("회사명 : " + company.getCompanyNm());
 			System.out.println("부서명 : " + company.getTeamNm());
 			System.out.println("직급 : " + company.getRank());
 		} else if (addr.getGroup().equals("거래처")) {
 			CustomerAddr customer = (CustomerAddr) addr;
-			System.out.println("이름:" + addr.getName());
-			System.out.println("전화번호:" + addr.getPhone());
-			System.out.println("이메일:" + addr.getEmail());
-			System.out.println("주소:" + addr.getAddr());
-			System.out.println("그룹(친구/가족/회사/거래처):" + addr.getGroup());
 			System.out.println("거래처 : " + customer.getCustomerNm());
 			System.out.println("거래 품목 : " + customer.getProduct());
 			System.out.println("직급 : " + customer.getRank());
-		} else {
-			System.out.println("이름:" + addr.getName());
-			System.out.println("전화번호:" + addr.getPhone());
-			System.out.println("이메일:" + addr.getEmail());
-			System.out.println("주소:" + addr.getAddr());
-			System.out.println("그룹(친구/가족/회사/거래처):" + addr.getGroup());
 		}
 		System.out.println("------------------------");
 	}
