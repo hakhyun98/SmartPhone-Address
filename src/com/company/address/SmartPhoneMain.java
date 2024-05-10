@@ -27,21 +27,24 @@ public class SmartPhoneMain {
 				smartphone.printAllAddr();
 				break;
 			case 3:
+				smartphone.printContact();
+				break;
+			case 4:
 				System.out.print("찾을 이름을 입력하세요:");
 				String serName = sc.nextLine();
 				smartphone.searchAddr(serName);
 				break;
-			case 4:
+			case 5:
 				System.out.print("삭제할 이름을 입력하세요:");
 				String delName = sc.nextLine();
 				smartphone.deleteAddr(delName);
 				break;
-			case 5:
+			case 6:
 				System.out.print("수정할 이름을 입력하세요:");
 				String editName = sc.nextLine();
 				smartphone.editAddr(editName, smartphone.inputAddrData());
 				break;
-			case 6:
+			case 7:
 				System.out.println("프로그램을 종료합니다.");
 				System.exit(0);
 				sc.close();
@@ -58,10 +61,11 @@ public class SmartPhoneMain {
 		System.out.println("주소관리 메뉴-----------");
 		System.out.println(">>1.연락처 등록");
 		System.out.println(">>2.모든 연락처 출력");
-		System.out.println(">>3.연락처 검색");
-		System.out.println(">>4.연락처 삭제");
-		System.out.println(">>5.연락처 수정");
-		System.out.println(">>6.프로그램 종료");
+		System.out.println(">>3.이롬,연락처 출력");
+		System.out.println(">>4.연락처 검색");
+		System.out.println(">>5.연락처 삭제");
+		System.out.println(">>6.연락처 수정");
+		System.out.println(">>7.프로그램 종료");
 		System.out.println("-------------------");
 
 	}

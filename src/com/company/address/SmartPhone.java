@@ -7,12 +7,30 @@ public class SmartPhone {
 	Addr[] addrList;
 	int count = 0;
 	Scanner sc;
+	Addr addr;
 
 	// 생성자
 	public SmartPhone() {
+		addr = new Addr();
 		addrList = new Addr[10];
 		sc = new Scanner(System.in);
 	}
+
+//	public String checkPhone(String phone) {
+//		while (true) {
+//			for (int i = 0; i < addrList.length; i++) {
+//				if (addrList[i].getPhone().equals(phone)) {
+//					phone = null;
+//				}
+//			}
+//			System.out.println("이미 등록된 번호입니다.");
+//			System.out.print("전화번호:");
+//			phone = sc.nextLine();
+//			
+//		}
+//
+//		return phone;
+//	}
 
 	// 입력 메소드 Addr객체 return
 	public Addr inputAddrData() {
@@ -20,6 +38,7 @@ public class SmartPhone {
 		String name = sc.nextLine();
 		System.out.print("전화번호:");
 		String phone = sc.nextLine();
+//		checkPhone(phone);
 		System.out.print("이메일:");
 		String email = sc.nextLine();
 		System.out.print("주소:");
@@ -45,6 +64,7 @@ public class SmartPhone {
 			return new CustomerAddr(name, phone, email, addr, group, customerNm, product, rank);
 		}
 		return new Addr(name, phone, email, addr, group);
+
 	}
 
 	// 추가 메소드
@@ -119,4 +139,13 @@ public class SmartPhone {
 			}
 		}
 	}
+
+	// 이름과 연락처만 출력하는 메소드
+	public void printContact() {
+		for (int i = 0; i < count; i++) {
+			addr.showData(addrList[i]);
+			System.out.println("------------------------");
+		}
+	}
+
 }

@@ -1,6 +1,6 @@
 package com.company.address;
 
-public class Addr {
+public class Addr implements ShowData{
 	
 	private String name;
 	private String phone;
@@ -57,6 +57,12 @@ public class Addr {
 
 	public void setGroup(String group) {
 		this.group = group;
+	}
+	
+	@Override
+	public void showData(Addr addr) {
+		System.out.println("이름 : " + addr.getName());
+		System.out.println("전화번호 : " + addr.getPhone());
 	}
 	
 	public void printAddr() {
