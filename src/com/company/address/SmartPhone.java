@@ -1,66 +1,114 @@
 package com.company.address;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class SmartPhone {
 
 	Addr[] addrList;
 	int count = 0;
 	Scanner sc;
-	Addr addr;
+	Addr addresses;
 
 	// 생성자
 	public SmartPhone() {
-		addr = new Addr();
+		addresses = new Addr();
 		addrList = new Addr[10];
 		sc = new Scanner(System.in);
 	}
 
-//	public String checkPhone(String phone) {
-//		while (true) {
-//			for (int i = 0; i < addrList.length; i++) {
-//				if (addrList[i].getPhone().equals(phone)) {
-//					phone = null;
-//				}
-//			}
-//			System.out.println("이미 등록된 번호입니다.");
-//			System.out.print("전화번호:");
-//			phone = sc.nextLine();
-//			
-//		}
-//
-//		return phone;
-//	}
+	// 이름 : 공백, 한글과 영어만
+	// 핸드폰 번호 : 중복, 전화번호 형식
+	// 검사및 오류처리
+	public String getMenu(String menuStr) {
+		String str = null;
+		while (true) {
+			System.out.print(menuStr);
+			str = sc.nextLine();
+			if (str.isEmpty()) {
+				try {
+					throw new Exception("공백은 입력할 수 없습니다.");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					continue;
+				}
+			} else if (menuStr.equals("전화번호: ") && existPhone(str)) {
+				try {
+					throw new Exception("이미 등록된 번호입니다.");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					continue;
+				}
+			} else if (menuStr.equals("전화번호: ") && !checkPhone(str)) {
+				try {
+					throw new Exception("전화번호 형식에 맞게 입력해주세요.");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					continue;
+				}
+			} else if (menuStr.equals("이름: ") && checkName(str)) {
+				try {
+					throw new Exception("이름은 한글과 영문만 가능합니다.");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					continue;
+				}
+			}
+			break;
+		}
+		return str;
+	}
+
+	// 이름 정규식 (영어와 한글만 가능)
+	public boolean checkName(String name) {
+		boolean check = true;
+		Pattern pattern = Pattern.compile("^[a-zA-Z가-힣]*$");
+		if (pattern.matcher(name).find()) {
+			check = false;
+		}
+		return check;
+	}
+
+	// 핸드폰 번호 정규식
+	public boolean checkPhone(String phone) {
+		boolean check = true;
+		Pattern pattern = Pattern.compile("^\\d{2,3}-\\d{3,4}-\\d{4}$");
+		for (int i = 0; i < phone.length(); i++) {
+			if (!pattern.matcher(phone).find()) {
+				check = false;
+			}
+		}
+		return check;
+	}
+
+	// 핸드폰 중복 처리
+	public boolean existPhone(String phone) {
+		boolean isHasPhone = false;
+		for (int i = 0; i < count; i++) {
+			if (addrList[i].getPhone().equals(phone)) {
+				isHasPhone = true;
+				break;
+			}
+		}
+		return isHasPhone;
+	}
 
 	// 입력 메소드 Addr객체 return
 	public Addr inputAddrData() {
-		System.out.print("이름:");
-		String name = sc.nextLine();
-		System.out.print("전화번호:");
-		String phone = sc.nextLine();
-//		checkPhone(phone);
-		System.out.print("이메일:");
-		String email = sc.nextLine();
-		System.out.print("주소:");
-		String addr = sc.nextLine();
-		System.out.print("그룹(친구/가족/회사/거래처):");
-		String group = sc.nextLine();
+		String name = getMenu("이름: ");
+		String phone = getMenu("전화번호: ");
+		String addr = getMenu("주소: ");
+		String email = getMenu("이메일: ");
+		String group = getMenu("그룹(친구/가족/회사/거래처): ");
 		if (group.equals("회사")) {
-			System.out.print("회사명 : ");
-			String companyNm = sc.nextLine();
-			System.out.print("부서명 : ");
-			String teamNm = sc.nextLine();
-			System.out.print("직급 : ");
-			String rank = sc.nextLine();
-			System.out.print(rank);
+			String companyNm = getMenu("회사명: ");
+			String teamNm = getMenu("부서명: ");
+			String rank = getMenu("직급: ");
 			return new CompanyAddr(name, phone, email, addr, group, companyNm, teamNm, rank);
 		} else if (group.equals("거래처")) {
-			System.out.print("거래처 : ");
-			String customerNm = sc.nextLine();
-			System.out.print("거래품목 : ");
-			String product = sc.nextLine();
-			System.out.print("직급 : ");
-			String rank = sc.nextLine();
+			String customerNm = getMenu("거래처: ");
+			String product = getMenu("거래품목: ");
+			String rank = getMenu("직급: ");
 			return new CustomerAddr(name, phone, email, addr, group, customerNm, product, rank);
 		}
 		return new Addr(name, phone, email, addr, group);
@@ -143,7 +191,7 @@ public class SmartPhone {
 	// 이름과 연락처만 출력하는 메소드
 	public void printContact() {
 		for (int i = 0; i < count; i++) {
-			addr.showData(addrList[i]);
+			addresses.showData(addrList[i]);
 			System.out.println("------------------------");
 		}
 	}
