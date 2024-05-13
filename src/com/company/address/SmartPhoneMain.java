@@ -16,7 +16,7 @@ public class SmartPhoneMain {
 			try {
 				num = sc.nextInt();
 			} catch (InputMismatchException e) {
-				System.out.println("1부터 7까지 입력해주세요.");
+				System.out.println("1부터 7까지만 입력해주세요.");
 				sc.nextInt();
 				continue;
 			}
